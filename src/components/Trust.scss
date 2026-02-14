@@ -1,0 +1,66 @@
+@use '../styles/variables' as *;
+
+.trust {
+  padding: $spacing-3xl 0;
+  background: $color-bg;
+
+  &__heading {
+    text-align: center;
+    font-size: $font-size-2xl;
+    margin-bottom: $spacing-2xl;
+    color: $color-text;
+
+    @media (min-width: $bp-md) {
+      font-size: $font-size-3xl;
+    }
+  }
+
+  &__badges {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: $spacing-xl;
+    margin-bottom: $spacing-2xl;
+  }
+
+  &__badge {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    font-size: $font-size-base;
+    font-weight: 500;
+    color: $color-text;
+  }
+
+  &__testimonials {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-lg;
+    max-width: 700px;
+    margin: 0 auto;
+
+    @media (min-width: $bp-md) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  &__quote {
+    background: $color-bg-alt;
+    border-radius: $border-radius-lg;
+    padding: $spacing-lg;
+    border-left: 3px solid $color-primary;
+
+    p {
+      font-style: italic;
+      color: $color-text-secondary;
+      margin-bottom: $spacing-sm;
+      line-height: 1.6;
+    }
+
+    footer {
+      font-size: $font-size-sm;
+      color: $gray-400;
+    }
+  }
+}

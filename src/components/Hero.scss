@@ -1,0 +1,57 @@
+@use '../styles/variables' as *;
+
+.hero {
+  background: linear-gradient(135deg, $green-800 0%, $green-700 100%);
+  color: $white;
+  padding: $spacing-3xl $spacing-md;
+  text-align: center;
+
+  @media (min-width: $bp-md) {
+    padding: 5rem $spacing-xl;
+  }
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-lg;
+  }
+
+  &__title {
+    font-size: $font-size-3xl;
+    font-weight: 700;
+    max-width: 600px;
+
+    @media (min-width: $bp-md) {
+      font-size: $font-size-4xl;
+    }
+  }
+
+  &__subtitle {
+    font-size: $font-size-lg;
+    max-width: 520px;
+    opacity: 0.92;
+    line-height: 1.6;
+  }
+
+  &__cta {
+    display: inline-block;
+    margin-top: $spacing-sm;
+    padding: $spacing-md $spacing-xl;
+    background-color: $white;
+    color: $green-800;
+    font-size: $font-size-lg;
+    font-weight: 600;
+    border-radius: $border-radius;
+    transition: background-color 0.15s ease, transform 0.15s ease;
+
+    &:hover {
+      background-color: $green-50;
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}

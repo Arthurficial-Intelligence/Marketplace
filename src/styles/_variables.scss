@@ -1,0 +1,63 @@
+// Colors
+$green-900: #14532d;
+$green-800: #166534;
+$green-700: #15803d;
+$green-600: #16a34a;
+$green-500: #22c55e;
+$green-400: #4ade80;
+$green-100: #dcfce7;
+$green-50: #f0fdf4;
+
+$white: #ffffff;
+$gray-50: #f9fafb;
+$gray-100: #f3f4f6;
+$gray-200: #e5e7eb;
+$gray-300: #d1d5db;
+$gray-400: #9ca3af;
+$gray-500: #6b7280;
+$gray-600: #4b5563;
+$gray-700: #374151;
+$gray-800: #1f2937;
+$gray-900: #111827;
+
+$color-primary: $green-700;
+$color-primary-dark: $green-800;
+$color-primary-light: $green-100;
+$color-bg: $white;
+$color-bg-alt: $gray-50;
+$color-text: $gray-900;
+$color-text-secondary: $gray-600;
+$color-border: $gray-200;
+$color-error: #dc2626;
+$color-success: $green-600;
+
+// Typography
+$font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+  sans-serif;
+
+$font-size-sm: 0.875rem;
+$font-size-base: 1rem;
+$font-size-lg: 1.125rem;
+$font-size-xl: 1.25rem;
+$font-size-2xl: 1.5rem;
+$font-size-3xl: 1.875rem;
+$font-size-4xl: 2.25rem;
+
+// Spacing
+$spacing-xs: 0.25rem;
+$spacing-sm: 0.5rem;
+$spacing-md: 1rem;
+$spacing-lg: 1.5rem;
+$spacing-xl: 2rem;
+$spacing-2xl: 3rem;
+$spacing-3xl: 4rem;
+
+// Layout
+$max-width: 1120px;
+$border-radius: 8px;
+$border-radius-lg: 12px;
+
+// Breakpoints
+$bp-sm: 640px;
+$bp-md: 768px;
+$bp-lg: 1024px;
