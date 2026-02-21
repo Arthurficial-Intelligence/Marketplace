@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1B4332"/>
+      <stop offset="100%" style="stop-color:#2D6A4F"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg-gradient)"/>
+  <!-- Decorative grass blades at bottom -->
+  <g opacity="0.15">
+    <path d="M0 630 L20 500 L40 630" fill="#40916C"/>
+    <path d="M60 630 L85 480 L110 630" fill="#52B788"/>
+    <path d="M130 630 L150 510 L170 630" fill="#40916C"/>
+    <path d="M200 630 L230 470 L260 630" fill="#52B788"/>
+    <path d="M300 630 L320 500 L340 630" fill="#40916C"/>
+    <path d="M400 630 L425 490 L450 630" fill="#52B788"/>
+    <path d="M500 630 L520 510 L540 630" fill="#40916C"/>
+    <path d="M600 630 L630 475 L660 630" fill="#52B788"/>
+    <path d="M700 630 L720 500 L740 630" fill="#40916C"/>
+    <path d="M800 630 L825 485 L850 630" fill="#52B788"/>
+    <path d="M900 630 L920 505 L940 630" fill="#40916C"/>
+    <path d="M1000 630 L1030 480 L1060 630" fill="#52B788"/>
+    <path d="M1100 630 L1120 500 L1140 630" fill="#40916C"/>
+    <path d="M1160 630 L1185 490 L1200 630" fill="#52B788"/>
+  </g>
+  <!-- Logo text "MowNow" -->
+  <text x="600" y="260" font-family="'Arial Black', 'Helvetica Neue', Arial, sans-serif" font-weight="900" font-size="96" fill="white" text-anchor="middle">MowNow</text>
+  <!-- Gold underline -->
+  <rect x="350" y="285" width="500" height="5" rx="2.5" fill="#D4A843"/>
+  <!-- Tagline -->
+  <text x="600" y="350" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="400" font-size="32" fill="white" text-anchor="middle" opacity="0.9">Your Neighborhood Lawn Care Marketplace</text>
+  <!-- CTA hint -->
+  <rect x="425" y="400" width="350" height="56" rx="28" fill="#D4A843"/>
+  <text x="600" y="435" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="700" font-size="22" fill="#1B4332" text-anchor="middle">Get Early Access</text>
+  <!-- Small grass blades near logo -->
+  <path d="M310 240 L315 200 L320 240" fill="#52B788" opacity="0.6"/>
+  <path d="M320 240 L327 190 L333 240" fill="#40916C" opacity="0.7"/>
+  <path d="M870 240 L877 195 L883 240" fill="#40916C" opacity="0.7"/>
+  <path d="M880 240 L885 205 L890 240" fill="#52B788" opacity="0.6"/>
+</svg>

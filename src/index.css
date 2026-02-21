@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@theme {
+  --font-heading: "Outfit", sans-serif;
+  --font-body: "DM Sans", sans-serif;
+
+  --color-primary: #1B4332;
+  --color-secondary-green: #2D6A4F;
+  --color-accent: #D4A843;
+  --color-cream: #FAF9F6;
+  --color-charcoal: #2D2D2D;
+  --color-error: #dc2626;
+  --color-white: #ffffff;
+}
+
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-charcoal);
+  background-color: var(--color-cream);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+/* Fade-in animation for scroll reveals */
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Sticky mobile CTA slide-up */
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.sticky-cta-enter {
+  animation: slideUp 0.3s ease-out;
+}

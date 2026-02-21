@@ -1,111 +1,50 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
-import './LeadForm.scss';
+import { siteContent } from '../content/mownow-copy';
+import {
+  submitLead,
+  YARD_SIZE_OPTIONS,
+  REFERRAL_SOURCE_OPTIONS,
+  type LeadFormData,
+} from '../lib/submitLead';
 
-interface FormData {
-  name: string;
-  email: string;
-  phone: string;
-  address: string;
-  yardSize: string;
-  referralSource: string;
-}
+const { leadForm } = siteContent;
 
-interface FormErrors {
-  [key: string]: string;
-}
-
-const YARD_SIZES = ['Small (under 5,000 sq ft)', 'Medium (5,000–10,000 sq ft)', 'Large (over 10,000 sq ft)'];
-
-const REFERRAL_SOURCES = [
-  'Google / Search Engine',
-  'Facebook / Social Media',
-  'Nextdoor',
-  'Friend or Neighbor',
-  'Yard Sign / Flyer',
-  'Other',
-];
-
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const PHONE_RE = /^[\d\s()+-]{7,20}$/;
-
-function validate(data: FormData): FormErrors {
-  const errors: FormErrors = {};
-  if (!data.name.trim()) errors.name = 'Full name is required.';
-  if (!data.email.trim()) {
-    errors.email = 'Email is required.';
-  } else if (!EMAIL_RE.test(data.email)) {
-    errors.email = 'Please enter a valid email address.';
-  }
-  if (!data.phone.trim()) {
-    errors.phone = 'Phone number is required.';
-  } else if (!PHONE_RE.test(data.phone)) {
-    errors.phone = 'Please enter a valid phone number.';
-  }
-  if (!data.address.trim()) errors.address = 'Street address is required.';
-  if (!data.yardSize) errors.yardSize = 'Please select a yard size.';
-  return errors;
-}
+const VALID_ZIPS = ['37127', '37128', '37129', '37130', '37131', '37132'];
 
 export default function LeadForm() {
-  const [formData, setFormData] = useState<FormData>({
-    name: '',
+  const [formData, setFormData] = useState<LeadFormData>({
+    full_name: '',
     email: '',
     phone: '',
-    address: '',
-    yardSize: '',
-    referralSource: '',
+    street_address: '',
+    zip_code: '',
+    yard_size: '',
+    referral_source: '',
   });
-  const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    if (errors[name]) {
-      setErrors((prev) => {
-        const next = { ...prev };
-        delete next[name];
-        return next;
-      });
-    }
+    if (errorMsg) setErrorMsg('');
   }
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    setSubmitError('');
-
-    const validationErrors = validate(formData);
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
-    }
-
+    setErrorMsg('');
     setSubmitting(true);
 
-    console.log('Lead form submission:', formData);
+    const result = await submitLead(formData);
 
-    const endpoint = import.meta.env.VITE_API_ENDPOINT;
-    if (endpoint) {
-      try {
-        const res = await fetch(endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
-        });
-        if (!res.ok) throw new Error(`Server responded ${res.status}`);
-      } catch (err) {
-        console.error('Submission error:', err);
-        setSubmitError(
-          'Something went wrong. Please try again or email us directly.',
-        );
-        setSubmitting(false);
-        return;
-      }
+    if (!result.success) {
+      setErrorMsg(result.error || leadForm.errorMessage);
+      setSubmitting(false);
+      return;
     }
 
     setSubmitting(false);
@@ -114,17 +53,19 @@ export default function LeadForm() {
 
   if (submitted) {
     return (
-      <section className="lead-form" id="lead-form" aria-labelledby="form-heading">
-        <div className="container">
-          <div className="lead-form__success" role="status">
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-              <circle cx="24" cy="24" r="24" fill="#dcfce7" />
-              <path d="M15 25l6 6 12-13" stroke="#15803d" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            <h2>You&rsquo;re on the list!</h2>
-            <p>
-              Thanks for your interest in MowNow. We&rsquo;ll be in touch soon
-              with pricing and next steps for your Murfreesboro yard.
+      <section className="bg-primary py-16 md:py-20" id="lead-form" aria-labelledby="form-heading">
+        <div className="mx-auto max-w-lg px-5">
+          <div className="flex flex-col items-center text-center gap-4 py-8" role="status">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-accent/20">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                <path d="M8 17l5 5 11-12" stroke="#D4A843" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+            <h2 className="font-heading text-2xl font-700 text-white">
+              {leadForm.successTitle}
+            </h2>
+            <p className="max-w-sm text-base leading-relaxed text-white/80">
+              {leadForm.successMessage}
             </p>
           </div>
         </div>
@@ -133,150 +74,168 @@ export default function LeadForm() {
   }
 
   return (
-    <section className="lead-form" id="lead-form" aria-labelledby="form-heading">
-      <div className="container">
-        <h2 id="form-heading" className="lead-form__heading">
-          Get Your Free Quote
+    <section className="bg-primary py-16 md:py-20" id="lead-form" aria-labelledby="form-heading">
+      <div className="mx-auto max-w-lg px-5">
+        <h2
+          id="form-heading"
+          className="font-heading text-center text-2xl font-700 text-white md:text-3xl"
+        >
+          {leadForm.heading}
         </h2>
-        <p className="lead-form__subheading">
-          Tell us about your yard and we&rsquo;ll send you a price — no
-          obligation.
+        <p className="mt-2 text-center text-base text-white/75">
+          {leadForm.subheading}
         </p>
 
         <form
-          className="lead-form__form"
+          className="mt-8 flex flex-col gap-4"
           onSubmit={handleSubmit}
           noValidate
         >
-          <div className="lead-form__field">
-            <label htmlFor="name">Full Name</label>
+          {/* Full Name */}
+          <div className="flex flex-col gap-1">
+            <label htmlFor="full_name" className="text-sm font-500 text-white/90">
+              Full Name *
+            </label>
             <input
-              id="name"
-              name="name"
+              id="full_name"
+              name="full_name"
               type="text"
               autoComplete="name"
-              value={formData.name}
+              placeholder="e.g. John Smith"
+              value={formData.full_name}
               onChange={handleChange}
-              aria-invalid={!!errors.name}
-              aria-describedby={errors.name ? 'name-error' : undefined}
+              className="rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-base text-white placeholder-white/40 backdrop-blur-sm transition-colors focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30"
             />
-            {errors.name && (
-              <span id="name-error" className="lead-form__error" role="alert">
-                {errors.name}
-              </span>
-            )}
           </div>
 
-          <div className="lead-form__field">
-            <label htmlFor="email">Email</label>
+          {/* Email */}
+          <div className="flex flex-col gap-1">
+            <label htmlFor="email" className="text-sm font-500 text-white/90">
+              Email *
+            </label>
             <input
               id="email"
               name="email"
               type="email"
               autoComplete="email"
+              placeholder="you@email.com"
               value={formData.email}
               onChange={handleChange}
-              aria-invalid={!!errors.email}
-              aria-describedby={errors.email ? 'email-error' : undefined}
+              className="rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-base text-white placeholder-white/40 backdrop-blur-sm transition-colors focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30"
             />
-            {errors.email && (
-              <span id="email-error" className="lead-form__error" role="alert">
-                {errors.email}
-              </span>
-            )}
           </div>
 
-          <div className="lead-form__field">
-            <label htmlFor="phone">Phone Number</label>
+          {/* Phone */}
+          <div className="flex flex-col gap-1">
+            <label htmlFor="phone" className="text-sm font-500 text-white/90">
+              Phone Number *
+            </label>
             <input
               id="phone"
               name="phone"
               type="tel"
               autoComplete="tel"
+              placeholder="(615) 555-1234"
               value={formData.phone}
               onChange={handleChange}
-              aria-invalid={!!errors.phone}
-              aria-describedby={errors.phone ? 'phone-error' : undefined}
+              className="rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-base text-white placeholder-white/40 backdrop-blur-sm transition-colors focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30"
             />
-            {errors.phone && (
-              <span id="phone-error" className="lead-form__error" role="alert">
-                {errors.phone}
-              </span>
-            )}
           </div>
 
-          <div className="lead-form__field">
-            <label htmlFor="address">Street Address (Murfreesboro area)</label>
+          {/* Street Address */}
+          <div className="flex flex-col gap-1">
+            <label htmlFor="street_address" className="text-sm font-500 text-white/90">
+              Street Address *
+            </label>
             <input
-              id="address"
-              name="address"
+              id="street_address"
+              name="street_address"
               type="text"
               autoComplete="street-address"
-              value={formData.address}
+              placeholder="123 Main St, Murfreesboro, TN"
+              value={formData.street_address}
               onChange={handleChange}
-              aria-invalid={!!errors.address}
-              aria-describedby={errors.address ? 'address-error' : undefined}
+              className="rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-base text-white placeholder-white/40 backdrop-blur-sm transition-colors focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30"
             />
-            {errors.address && (
-              <span id="address-error" className="lead-form__error" role="alert">
-                {errors.address}
-              </span>
-            )}
           </div>
 
-          <div className="lead-form__field">
-            <label htmlFor="yardSize">Yard Size Estimate</label>
+          {/* Zip Code */}
+          <div className="flex flex-col gap-1">
+            <label htmlFor="zip_code" className="text-sm font-500 text-white/90">
+              Zip Code *
+            </label>
             <select
-              id="yardSize"
-              name="yardSize"
-              value={formData.yardSize}
+              id="zip_code"
+              name="zip_code"
+              value={formData.zip_code}
               onChange={handleChange}
-              aria-invalid={!!errors.yardSize}
-              aria-describedby={errors.yardSize ? 'yardSize-error' : undefined}
+              className="appearance-none rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-base text-white backdrop-blur-sm transition-colors focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30"
             >
-              <option value="">Select yard size</option>
-              {YARD_SIZES.map((size) => (
-                <option key={size} value={size}>
-                  {size}
-                </option>
-              ))}
-            </select>
-            {errors.yardSize && (
-              <span id="yardSize-error" className="lead-form__error" role="alert">
-                {errors.yardSize}
-              </span>
-            )}
-          </div>
-
-          <div className="lead-form__field">
-            <label htmlFor="referralSource">How did you hear about us?</label>
-            <select
-              id="referralSource"
-              name="referralSource"
-              value={formData.referralSource}
-              onChange={handleChange}
-            >
-              <option value="">Select one (optional)</option>
-              {REFERRAL_SOURCES.map((source) => (
-                <option key={source} value={source}>
-                  {source}
+              <option value="" className="text-charcoal">Select zip code</option>
+              {VALID_ZIPS.map((zip) => (
+                <option key={zip} value={zip} className="text-charcoal">
+                  {zip}
                 </option>
               ))}
             </select>
           </div>
 
-          {submitError && (
-            <p className="lead-form__submit-error" role="alert">
-              {submitError}
+          {/* Yard Size */}
+          <div className="flex flex-col gap-1">
+            <label htmlFor="yard_size" className="text-sm font-500 text-white/90">
+              Yard Size Estimate
+            </label>
+            <select
+              id="yard_size"
+              name="yard_size"
+              value={formData.yard_size}
+              onChange={handleChange}
+              className="appearance-none rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-base text-white backdrop-blur-sm transition-colors focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30"
+            >
+              <option value="" className="text-charcoal">Select yard size</option>
+              {YARD_SIZE_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value} className="text-charcoal">
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Referral Source */}
+          <div className="flex flex-col gap-1">
+            <label htmlFor="referral_source" className="text-sm font-500 text-white/90">
+              How did you hear about us?
+            </label>
+            <select
+              id="referral_source"
+              name="referral_source"
+              value={formData.referral_source}
+              onChange={handleChange}
+              className="appearance-none rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-base text-white backdrop-blur-sm transition-colors focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30"
+            >
+              <option value="" className="text-charcoal">Select one (optional)</option>
+              {REFERRAL_SOURCE_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value} className="text-charcoal">
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Error message */}
+          {errorMsg && (
+            <p className="rounded-lg bg-error/20 px-4 py-3 text-center text-sm text-white" role="alert">
+              {errorMsg}
             </p>
           )}
 
+          {/* Submit */}
           <button
             type="submit"
-            className="lead-form__submit"
             disabled={submitting}
+            className="mt-2 rounded-lg bg-accent px-8 py-4 text-lg font-bold text-primary shadow-lg transition-all duration-200 hover:bg-accent/90 hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-70"
           >
-            {submitting ? 'Sending...' : 'Get My Free Quote'}
+            {submitting ? leadForm.submittingButton : leadForm.submitButton}
           </button>
         </form>
       </div>

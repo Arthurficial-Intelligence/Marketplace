@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 60" width="280" height="60">
+  <defs>
+    <style>
+      .logo-text { font-family: 'Arial Black', 'Helvetica Neue', Arial, sans-serif; font-weight: 900; font-size: 38px; letter-spacing: -0.5px; }
+    </style>
+  </defs>
+  <!-- Grass blade accent between words -->
+  <g transform="translate(0, 6)">
+    <!-- "Mow" text -->
+    <text x="6" y="40" class="logo-text" fill="#1B4332">Mow</text>
+    <!-- Grass blade cluster -->
+    <path d="M118 48 L121 18 L124 48" fill="#2D6A4F" opacity="0.7"/>
+    <path d="M124 48 L129 12 L132 48" fill="#1B4332"/>
+    <path d="M130 48 L136 20 L139 48" fill="#40916C" opacity="0.8"/>
+    <!-- "Now" text -->
+    <text x="142" y="40" class="logo-text" fill="#1B4332">Now</text>
+    <!-- Small gold underline accent -->
+    <rect x="6" y="48" width="234" height="3" rx="1.5" fill="#D4A843"/>
+  </g>
+</svg>
