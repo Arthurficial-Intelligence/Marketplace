@@ -51,3 +51,38 @@ h1, h2, h3, h4, h5, h6 {
 .sticky-cta-enter {
   animation: slideUp 0.3s ease-out;
 }
+
+/* Quote flow overlay slide-up */
+@keyframes overlaySlideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.animate-slide-up {
+  animation: overlaySlideUp 0.35s ease-out;
+}
+
+/* Quote flow animations */
+@keyframes dotPulse {
+  0%, 80%, 100% { opacity: 0.3; }
+  40% { opacity: 1; }
+}
+
+.quote-flow-dots {
+  display: inline-flex;
+  letter-spacing: 2px;
+}
+
+.quote-flow-dots::after {
+  content: '';
+  animation: dotPulse 1.4s infinite ease-in-out;
+}
+
+.quote-flow-step {
+  animation: quoteStepFade 350ms ease-out;
+}
+
+@keyframes quoteStepFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

@@ -1,15 +1,17 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Hero from './components/Hero';
 import HowItWorks from './components/HowItWorks';
 import Services from './components/Services';
 import WhyMowNow from './components/WhyMowNow';
 import SocialProof from './components/SocialProof';
 import FAQ from './components/FAQ';
-import LeadForm from './components/LeadForm';
 import Footer from './components/Footer';
 import StickyMobileCTA from './components/StickyMobileCTA';
+import QuoteFlowOverlay from './components/QuoteFlowOverlay';
 
 export default function App() {
+  const [quoteFlowOpen, setQuoteFlowOpen] = useState(false);
+
   // Scroll-triggered fade-in using Intersection Observer
   useEffect(() => {
     const sections = document.querySelectorAll('.fade-in-section');
@@ -34,7 +36,7 @@ export default function App() {
   return (
     <>
       <header>
-        <Hero />
+        <Hero onOpenQuoteFlow={() => setQuoteFlowOpen(true)} />
       </header>
       <main>
         <HowItWorks />
@@ -42,10 +44,16 @@ export default function App() {
         <WhyMowNow />
         <SocialProof />
         <FAQ />
-        <LeadForm />
       </main>
       <Footer />
-      <StickyMobileCTA />
+      <StickyMobileCTA
+        onOpenQuoteFlow={() => setQuoteFlowOpen(true)}
+        isQuoteFlowOpen={quoteFlowOpen}
+      />
+      <QuoteFlowOverlay
+        isOpen={quoteFlowOpen}
+        onClose={() => setQuoteFlowOpen(false)}
+      />
     </>
   );
 }

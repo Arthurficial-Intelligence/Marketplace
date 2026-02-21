@@ -55,22 +55,24 @@ export default function SocialProof() {
           ))}
         </div>
 
-        {/* Testimonials */}
-        <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3">
-          {socialProof.testimonials.map((t, i) => (
-            <blockquote
-              key={i}
-              className="rounded-xl border-l-4 border-accent bg-white p-5 shadow-sm"
-            >
-              <p className="text-sm italic leading-relaxed text-charcoal/75">
-                "{t.quote}"
-              </p>
-              <footer className="mt-3 text-xs font-500 text-charcoal/50">
-                &mdash; {t.name}, {t.location}
-              </footer>
-            </blockquote>
-          ))}
-        </div>
+        {/* Testimonials — uncomment when real customer quotes are available */}
+        {socialProof.testimonials.length > 0 && (
+          <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3">
+            {socialProof.testimonials.map((t, i) => (
+              <blockquote
+                key={i}
+                className="rounded-xl border-l-4 border-accent bg-white p-5 shadow-sm"
+              >
+                <p className="text-sm italic leading-relaxed text-charcoal/75">
+                  "{t.quote}"
+                </p>
+                <footer className="mt-3 text-xs font-500 text-charcoal/50">
+                  &mdash; {t.name}, {t.location}
+                </footer>
+              </blockquote>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

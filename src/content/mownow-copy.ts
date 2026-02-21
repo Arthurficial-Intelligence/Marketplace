@@ -109,7 +109,7 @@ export interface SiteContent {
 export const siteContent: SiteContent = {
   // ── Hero ──────────────────────────────────────────────────
   hero: {
-    headline: 'Lawn care, booked in seconds.',
+    headline: 'Your Yard. Your Weekend. We\u2019ll Handle the Mowing.',
     subheadline:
       'No waiting for quotes. No back-and-forth. Just a freshly cut yard at a price you know upfront — right here in Murfreesboro.',
     cta: 'Get My Free Quote',
@@ -129,12 +129,12 @@ export const siteContent: SiteContent = {
       {
         title: 'Get Your Price, Instantly',
         description:
-          'No waiting around for a callback. You see your price right away — transparent, fair, no hidden fees.',
+          'Answer a few quick questions about your yard and see your exact price — no waiting, no callbacks.',
       },
       {
         title: 'We Show Up and Handle It',
         description:
-          'A licensed, insured pro comes on schedule, does the work, and you get your weekend back. Simple as that.',
+          'A local pro comes on schedule, does the work, and you get your weekend back. Simple as that.',
       },
     ],
   },
@@ -144,8 +144,8 @@ export const siteContent: SiteContent = {
     heading: 'What We Offer',
     card: {
       title: 'Weekly Mow & Edge',
-      price: 'Starting at $40',
-      note: 'Final pricing is based on your yard size. We always confirm the price before any work begins — no surprises.',
+      price: 'Starting at $35',
+      note: 'Prices calculated instantly based on your yard size and features. What you see is what you pay.',
     },
   },
 
@@ -164,9 +164,9 @@ export const siteContent: SiteContent = {
           'Most lawn companies make you call, wait, follow up, then wait some more. We give you a price in minutes, not days.',
       },
       {
-        title: 'Licensed, Insured & Local',
+        title: 'Local Pros Who Care',
         description:
-          'We are not some app sending random strangers to your door. MowNow crews are licensed, insured, and from right here in the Boro.',
+          'We are not some app sending random strangers to your door. MowNow crews are from right here in the Boro — neighbors taking care of neighbors.',
       },
       {
         title: '100% Satisfaction Guaranteed',
@@ -180,31 +180,12 @@ export const siteContent: SiteContent = {
   socialProof: {
     heading: 'Join 50+ Murfreesboro Homeowners Getting Their Weekends Back',
     badges: [
-      { label: 'Licensed & Insured' },
       { label: 'Locally Owned' },
       { label: 'Murfreesboro Proud' },
       { label: 'Satisfaction Guaranteed' },
+      { label: 'Fast & Reliable' },
     ],
-    testimonials: [
-      {
-        quote:
-          'I used to spend my whole Saturday mowing. Now I book online Friday night and my yard looks amazing by lunch.',
-        name: 'Marcus T.',
-        location: 'Murfreesboro, TN',
-      },
-      {
-        quote:
-          'Knowing the price upfront is a game changer. No more awkward negotiations or surprise bills.',
-        name: 'Sarah K.',
-        location: 'Murfreesboro, TN',
-      },
-      {
-        quote:
-          'Finally a lawn service that just does what they say. Show up, mow, done. These guys are the real deal.',
-        name: 'Jason R.',
-        location: 'Smyrna, TN',
-      },
-    ],
+    testimonials: [],
   },
 
   // ── FAQ ───────────────────────────────────────────────────
@@ -217,9 +198,9 @@ export const siteContent: SiteContent = {
           'Mow and edge service starts at $40. Your actual price depends on yard size, and we always confirm it with you before we start. No hidden fees, no surprises.',
       },
       {
-        question: 'Are you licensed and insured?',
+        question: 'Who does the mowing?',
         answer:
-          'Absolutely. Every MowNow crew member is fully licensed and insured. We take this seriously — it protects your property and gives you peace of mind.',
+          'MowNow connects you with hardworking local pros right here in Murfreesboro. These are folks from the community who take pride in their work and want your yard looking its best.',
       },
       {
         question: 'What areas do you serve?',

@@ -2,7 +2,11 @@ import { siteContent } from '../content/mownow-copy';
 
 const { hero } = siteContent;
 
-export default function Hero() {
+interface HeroProps {
+  onOpenQuoteFlow: () => void;
+}
+
+export default function Hero({ onOpenQuoteFlow }: HeroProps) {
   return (
     <section
       className="relative min-h-[85vh] flex items-center justify-center overflow-hidden"
@@ -35,12 +39,12 @@ export default function Hero() {
           {hero.subheadline}
         </p>
 
-        <a
-          href="#lead-form"
+        <button
+          onClick={onOpenQuoteFlow}
           className="mt-8 inline-block rounded-lg bg-accent px-8 py-4 text-lg font-bold text-primary shadow-lg transition-all duration-200 hover:bg-accent/90 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
         >
           {hero.cta}
-        </a>
+        </button>
       </div>
     </section>
   );
